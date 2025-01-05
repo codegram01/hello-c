@@ -7,18 +7,22 @@
 void printPerson(const Person *p)
 {
 	printf("Person:\n"
-	       "- id   : %s\n"
-	       "- name : %s\n" "- age  : %d\n", p->id, p->name, p->age);
+		   "- id   : %s\n"
+		   "- name : %s\n"
+		   "- age  : %d\n",
+		   p->id, p->name, p->age);
 }
 
 void listPersons(const Person *persons, int lengthPersons)
 {
-	if (lengthPersons == 0) {
+	if (lengthPersons == 0)
+	{
 		printf("No persons to display.\n");
 		return;
 	}
 
-	for (int i = 0; i < lengthPersons; i++) {
+	for (int i = 0; i < lengthPersons; i++)
+	{
 		printf("[%d] ", i);
 		printPerson(&persons[i]);
 	}
@@ -26,10 +30,12 @@ void listPersons(const Person *persons, int lengthPersons)
 
 void addPerson(Person **persons, int *lengthPersons, int *capacityPersons)
 {
-	if (*lengthPersons >= *capacityPersons) {
+	if (*lengthPersons >= *capacityPersons)
+	{
 		*capacityPersons *= 2;
 		*persons = realloc(*persons, *capacityPersons * sizeof(Person));
-		if (!*persons) {
+		if (!*persons)
+		{
 			perror("Failed to allocate memory");
 			exit(EXIT_FAILURE);
 		}
@@ -38,8 +44,17 @@ void addPerson(Person **persons, int *lengthPersons, int *capacityPersons)
 	char name[MAX_NAME];
 	int age;
 
+	getchar(); // fix for after scanf
+
 	printf("Enter name: ");
-	scanf("%s", name);
+	if (fgets(name, MAX_NAME, stdin) != NULL)
+	{
+		size_t len = strlen(name);
+		if (len > 0 && name[len - 1] == '\n')
+		{
+			name[len - 1] = '\0'; // Remove the trailing newline
+		}
+	}
 
 	printf("Enter age: ");
 	scanf("%d", &age);
@@ -61,7 +76,8 @@ void updatePerson(Person *persons, int lengthPersons)
 	int index;
 	scanf("%d", &index);
 
-	if (index < 0 || index >= lengthPersons) {
+	if (index < 0 || index >= lengthPersons)
+	{
 		printf("Invalid index. Cannot update person.\n");
 		return;
 	}
@@ -70,7 +86,14 @@ void updatePerson(Person *persons, int lengthPersons)
 	int age;
 
 	printf("Enter new name: ");
-	scanf("%s", name);
+	if (fgets(name, MAX_NAME, stdin) != NULL)
+	{
+		size_t len = strlen(name);
+		if (len > 0 && name[len - 1] == '\n')
+		{
+			name[len - 1] = '\0';
+		}
+	}
 
 	printf("Enter new age: ");
 	scanf("%d", &age);
@@ -84,12 +107,14 @@ void updatePerson(Person *persons, int lengthPersons)
 
 void deletePerson(Person *persons, int *lengthPersons, int index)
 {
-	if (index < 0 || index >= *lengthPersons) {
+	if (index < 0 || index >= *lengthPersons)
+	{
 		printf("Invalid index. Cannot delete person.\n");
 		return;
 	}
 
-	for (int i = index; i < *lengthPersons - 1; i++) {
+	for (int i = index; i < *lengthPersons - 1; i++)
+	{
 		persons[i] = persons[i + 1];
 	}
 
