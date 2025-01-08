@@ -1,11 +1,47 @@
 # Hello C
 
-Simple example code in C for learning. Person Management
+Simple example code in C for learning.
 
-## Run 
+## Command
+
+All magic in Makefile, read it
+
+### Build: 
 
 ```sh
-make run 
+make 
+```
+
+### Run: 
+
+```sh
+make run
+```
+
+### Unit Test: 
+
+```sh
+make [path file test]
+```
+
+Ex: 
+
+```sh
+make person/person_test
+```
+
+### Clean
+
+Clean Build 
+
+```sh
+make clean
+```
+
+### Beauty code
+
+```sh
+make lint
 ```
 
 ## Contribue
