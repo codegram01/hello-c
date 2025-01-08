@@ -1,5 +1,5 @@
-#ifndef PERSON_H
-#define PERSON_H
+#ifndef PERSON_PERSON_H
+#define PERSON_PERSON_H
 
 #include "../modules/uuid.h"
 
