@@ -2,6 +2,12 @@
 
 Simple example code in C for learning.
 
+## Feature
+
+- Organize sources code
+- Simple build and run
+- Test, unit test
+
 ## Command
 
 All magic in Makefile, read it
