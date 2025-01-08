@@ -1,53 +1,43 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "person.h"
+#include <ctype.h>
+#include <stdarg.h>
 
-int main(void)
+void minprintf(char *fmt, ...)
 {
-	int lengthPersons = 0;
-	int capacityPersons = 10;
-	Person *persons = malloc(capacityPersons * sizeof(Person));
-
-	if (!persons) {
-		perror("Failed to allocate memory");
-		return EXIT_FAILURE;
-	}
-
-	int choice = 0;
-	while (choice != 5) {
-		printf("-----------------------\n"
-		       "What do you want to do:\n"
-		       "1. List persons\n"
-		       "2. Add person\n"
-		       "3. Update person\n"
-		       "4. Delete person\n" "5. Quit\n" "Chose: ");
-		scanf("%d", &choice);
-
-		switch (choice) {
-		case 1:
-			listPersons(persons, lengthPersons);
+	va_list ap;		/* points to each unnamed arg in turn */
+	char *p, *sval;
+	int ival;
+	double dval;
+	va_start(ap, fmt);	/* make ap point to 1st unnamed arg */
+	for (p = fmt; *p; p++) {
+		if (*p != '%') {
+			putchar(*p);
+			continue;
+		}
+		switch (*++p) {
+		case 'd':
+			ival = va_arg(ap, int);
+			printf("%d", ival);
 			break;
-		case 2:
-			addPerson(&persons, &lengthPersons, &capacityPersons);
+		case 'f':
+			dval = va_arg(ap, double);
+			printf("%f", dval);
 			break;
-		case 3:
-			updatePerson(persons, lengthPersons);
-			break;
-		case 4:
-			printf("Enter index to delete: ");
-			int index;
-			scanf("%d", &index);
-			deletePerson(persons, &lengthPersons, index);
-			break;
-		case 5:
-			printf("Goodbye!\n");
+		case 's':
+			for (sval = va_arg(ap, char *); *sval; sval++)
+				putchar(*sval);
 			break;
 		default:
-			printf("Please choose a valid option (1-5).\n");
+			putchar(*p);
 			break;
 		}
 	}
+	va_end(ap);		/* clean up when done */
+}
 
-	free(persons);
+int main(void)
+{
+	minprintf("hello %d", 20);
+
 	return 0;
 }

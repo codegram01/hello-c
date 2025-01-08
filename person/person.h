@@ -1,7 +1,7 @@
 #ifndef PERSON_H
 #define PERSON_H
 
-#include "modules/uuid.h"
+#include "../modules/uuid.h"
 
 static const int MAX_NAME = 200;
 
@@ -11,6 +11,7 @@ typedef struct Person {
 	unsigned int age;
 } Person;
 
+int personApp(void);
 void printPerson(const Person * p);
 void listPersons(const Person * persons, int lengthPersons);
 void addPerson(Person ** persons, int *lengthPersons, int *capacityPersons);
